@@ -3,11 +3,10 @@
 */
 
 
-#include "serialhandler.hpp"
-int main(){
+#include <serialhandler.hpp>
+int main(int argc, char *argv[]) {
     
-    printf("test")
+    printf("test");
     return 0;
-    
 }
 

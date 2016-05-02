@@ -1,4 +1,4 @@
-#include "serialhandler.h"
+#include "serialhandler.hpp"
 
 
 serialhandler::serialhandler(void) : set_eol_char('\n')
