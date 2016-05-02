@@ -19,8 +19,8 @@ protected:
 	serial_port_ptr port;
 	boost::mutex mutex;
 
-	char read_buf_raw_[SERIAL_PORT_READ_BUF_SIZE];
-	std::string read_buf_str_;
+	char read_buf_raw[SERIAL_PORT_READ_BUF_SIZE];
+	std::string read_buf_str;
 
 	char end_of_line_char_;
 

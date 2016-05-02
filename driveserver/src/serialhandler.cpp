@@ -54,7 +54,7 @@ void serialhandler::stop()
     {
         port->cancel();
         port->close();
-        port->reset();
+        port.reset();
     }
 
     io_service.stop();
@@ -76,4 +76,43 @@ int serialhandler::write_bytes(const char *buf, const int &size)
     return port->write_some(boost::asio::buffer(buf, size), ec);
 }
 
-void
+void serialhandler::async_read()
+{
+    if( port.get() == NULL || !port->is_open()){
+        return;
+    } 
+    
+    port->async_read_some(
+        boost::asio::buffer(read_buf_raw, SERIAL_PORT_READ_BUF_SIZE), 
+        boost::bind(
+            &serialhandler::on_receive,
+            this, boost::asio::placeholders::error,
+            boost::asio::placeholders::bytes_transferred));
+}
+void serialhandler::on_receive(const boost::system::error_code& ec, size_t bytes_transferred)
+{
+    boost::mutex::scoped_lock look(mutex);
+    
+    if( port.get() == NULL || !port->is_open())
+    {
+        return;
+    }
+    if(ec) {
+        async_read();
+        return;
+    }    
+    for(unsigned int i = 0; i < bytes_transferred; i++){
+        char c = read_buf_raw[i];
+        if(c == end_of_line_char) {
+            this->on_receive(read_buf_str);
+            read_buf_str.clear();
+        }
+        else
+        {
+            read_buf_str += c;
+        }
+    }
+}
+void serialhandler::on_receive(const std::string & data){
+    std::cout << "serialhandler::on_receive() : " << data << std::endl;
+}
