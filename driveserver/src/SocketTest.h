@@ -24,8 +24,8 @@ public:
     ~SocketTest();
 
 
-    void startListen(char *address, char *port);
-
+    void startServer(char *address, char *port);
+    void listenForMessages();
     void showAddress(char* address);
 };
 

@@ -11,11 +11,12 @@ SocketTest::SocketTest()
 
 }
 
-void SocketTest::startListen(char *address, char *port)
+void SocketTest::startServer(char *address, char *port)
 {
     struct sockaddr_storage their_addr;
     socklen_t addr_size;
     int socketDescriptor, newSocketDescriptor;
+    int numbytes;
 
     getAddress(address, port);
 
@@ -30,16 +31,34 @@ void SocketTest::startListen(char *address, char *port)
     else if(bindResult == 0)
     {
         printf("Now listening on: %s", result->ai_addr);
+        freeaddrinfo(result);
     }
 
-    listen(socketDescriptor, 5);
+    printf("listener: waiting to recvfrom...\n");
 
+    while(1)
+    {
+        addr_len = sizeof their_addr;
+        if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN - 1, 0, (struct sockaddr *) &their_addr, &addr_len)) == -1) {
+            perror("recvfrom");
+            exit(1);
+        }
 
-    addr_size = sizeof their_addr;
-    newSocketDescriptor = accept(socketDescriptor, (struct sockaddr *)&their_addr, &addr_size);
+        printf("listener: got packet from %s\n",
+               inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *) &their_addr), s, sizeof s));
+        printf("listener: packet is %d bytes long\n", numbytes);
+        buf[numbytes] = '\0';
+        printf("listener: packet contains \"%s\"\n", buf);
 
-    printf("A conneciton was made");
+        addr_size = sizeof their_addr;
+        newSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &their_addr, &addr_size);
 
+        printf("A connection was made");
+    }
+}
+
+void listenForMessages()
+{
 
 }
 
@@ -47,7 +66,7 @@ void SocketTest::getAddress(char *address, char *port)
 {
     memset(&hints, 0, sizeof hints); // make sure the struct is empty
     hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
-    hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+    hints.ai_socktype = SOCK_DGRAM; // UDP stream sockets
     hints.ai_flags = AI_PASSIVE;     // fill in my IP for me
 
     if ((status = getaddrinfo(address, port, &hints, &result)) != 0)
