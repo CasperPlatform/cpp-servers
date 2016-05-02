@@ -1,2 +1,4 @@
 driveserver/.idea
 driveserver/build
+driveserver/db
+sqlite3
