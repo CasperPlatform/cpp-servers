@@ -5,6 +5,8 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 
+#include <ostream>
+#include <iostream>
 #include <string>
 #include <vector>
 
