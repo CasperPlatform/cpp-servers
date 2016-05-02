@@ -15,9 +15,9 @@ typedef boost::shared_ptr<boost::asio::serial_port> serial_port_ptr;
 class serialhandler
 {
 protected:
-	boost::asio::io_service io_service_;
-	serial_port_ptr port_;
-	boost::mutex mutex_;
+	boost::asio::io_service io_service;
+	serial_port_ptr port;
+	boost::mutex mutex;
 
 	char read_buf_raw_[SERIAL_PORT_READ_BUF_SIZE];
 	std::string read_buf_str_;
