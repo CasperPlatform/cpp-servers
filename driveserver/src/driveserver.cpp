@@ -9,7 +9,7 @@ driveserver::driveserver(){
 }
 driveserver::~driveserver(){}
 
-int driveserver::parseAndSend(const char [] buf) const{
+int driveserver::parseAndSend(const char buf[]) const{
     printf("got a buffer to send to arduino\n %s",buf);
 }
 int driveserver::start(){

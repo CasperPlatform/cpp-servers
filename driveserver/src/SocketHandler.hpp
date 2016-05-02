@@ -34,7 +34,7 @@ private:
     void *get_in_addr(struct sockaddr *sa);
 public:
     SocketHandler();
-    SocketHandler(const boost::shared_ptr & driveServer);
+    SocketHandler(driveserver *server);
     ~SocketHandler();
 
 
