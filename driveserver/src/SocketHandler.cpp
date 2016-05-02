@@ -61,7 +61,7 @@ void SocketHandler::startServer(char *address, char *port)
             printf("sending buf to driveserver\n");
         }
         else{
-            printf("driveServer is null, cannot send buf\n")
+            printf("driveServer is null, cannot send buf\n");
         }
      
         //printf("listener: packet contains \"%s\"\n", buf);
