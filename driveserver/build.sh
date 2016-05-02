@@ -21,10 +21,10 @@ if [ ! -d "$SRCDIR" ]; then
     exit 1
 fi    
 
-SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/serialhandler.hpp"
+SRCFILES="$SRCDIR/serialhandler.cpp" 
 
-COMMAND="c++ main.cpp -o build/serialtest  \
--lboost_system -lboost_date_time -lboost_thread"
+COMMAND="c++ main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
+-lboost_system -lboost_date_time -lboost_thread -o serialtest"
 
 #COMMAND="gcc -o build/sens src/mqttClient.c \
 #-I/usr/local/include  "-I$MQQTINCLUDE/" "$MQQTADDITIONAL" \
