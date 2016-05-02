@@ -18,7 +18,7 @@ private:
     int status;
     char ipString[INET6_ADDRSTRLEN];  // will point to the results
     void getAddress(char* address, char* port);
-
+    void *get_in_addr(struct sockaddr *sa);
 public:
     SocketTest();
     ~SocketTest();

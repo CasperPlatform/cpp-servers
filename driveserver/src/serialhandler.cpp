@@ -1,4 +1,4 @@
-#include "serialhandler.h"
+#include "serialhandler.hpp"
 
 
 serialhandler::serialhandler(void) : set_eol_char('\n')
@@ -61,7 +61,7 @@ void serialhandler::stop()
     io_service.reset();
 }
 
-int serialhandler::write(const std::string &buf)
+int serialhandler::write_string(const std::string &buf)
 {
     return write_bytes(buf.c_str, buf.size());
 }

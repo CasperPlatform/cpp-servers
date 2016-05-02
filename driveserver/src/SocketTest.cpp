@@ -18,6 +18,10 @@ void SocketTest::startServer(char *address, char *port)
     int socketDescriptor, newSocketDescriptor;
     int numbytes;
 
+    int MAXBUFLEN = 100;
+    char buf[MAXBUFLEN];
+    char s[INET6_ADDRSTRLEN];
+
     getAddress(address, port);
 
     socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
@@ -38,8 +42,8 @@ void SocketTest::startServer(char *address, char *port)
 
     while(1)
     {
-        addr_len = sizeof their_addr;
-        if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN - 1, 0, (struct sockaddr *) &their_addr, &addr_len)) == -1) {
+        addr_size = sizeof their_addr;
+        if ((numbytes = recvfrom(socketDescriptor, buf, MAXBUFLEN - 1, 0, (struct sockaddr *) &their_addr, &addr_size)) == -1) {
             perror("recvfrom");
             exit(1);
         }
@@ -49,17 +53,21 @@ void SocketTest::startServer(char *address, char *port)
         printf("listener: packet is %d bytes long\n", numbytes);
         buf[numbytes] = '\0';
         printf("listener: packet contains \"%s\"\n", buf);
-
-        addr_size = sizeof their_addr;
-        newSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &their_addr, &addr_size);
-
-        printf("A connection was made");
     }
 }
 
 void listenForMessages()
 {
 
+}
+
+void *SocketTest::get_in_addr(struct sockaddr *sa)
+{
+    if (sa->sa_family == AF_INET) {
+        return &(((struct sockaddr_in*)sa)->sin_addr);
+    }
+
+    return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
 void SocketTest::getAddress(char *address, char *port)

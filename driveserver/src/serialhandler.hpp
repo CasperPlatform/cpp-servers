@@ -22,15 +22,15 @@ protected:
 	char read_buf_raw[SERIAL_PORT_READ_BUF_SIZE];
 	std::string read_buf_str;
 
-	char end_of_line_char_;
+	char end_of_line_char;
 
-private:
+/*private:
 	SerialPort(const SerialPort &p);
 	SerialPort &operator=(const SerialPort &p); 
-
+*/
 public:
-	SerialPort(void);
-	virtual ~SerialPort(void);
+	serialhandler(void);
+	virtual ~serialhandler(void);
 
 	char get_eol_char() const;
 	void set_eol_char(const char &c);

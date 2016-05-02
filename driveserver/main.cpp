@@ -2,11 +2,18 @@
 * 
 */
 
-
 #include "serialhandler.hpp"
+#include "src/SocketTest.h"
+
 int main(){
     
-    printf("test")
+    printf("test");
+
+
+    SocketTest* socket = SocketTest();
+
+    socket->startServer("127.0.0.1", 10000);
+
     return 0;
     
 }
