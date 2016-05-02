@@ -24,7 +24,7 @@ fi
 SRCFILES="$SRCDIR/serialhandler.cpp" 
 
 COMMAND="c++ main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
--lboost_system -lboost_date_time -lboost_thread -o serialtest"
+-lboost_system -lboost_date_time -lboost_thread-mt -L/usr/local/lib -o build/serialtest"
 
 #COMMAND="gcc -o build/sens src/mqttClient.c \
 #-I/usr/local/include  "-I$MQQTINCLUDE/" "$MQQTADDITIONAL" \

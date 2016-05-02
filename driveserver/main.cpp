@@ -7,7 +7,7 @@
 
 int main(){
     
-    printf("test");
+    printf("test\n");
 
 
     /*SocketTest* socket = new SocketTest();
