@@ -30,7 +30,7 @@ private:
 public:
     driveserver();
     ~driveserver();        
-    int parseAndSend(const char [] buf) const;
+    int parseAndSend(const char buf[]) const;
     int start();
    
 };
