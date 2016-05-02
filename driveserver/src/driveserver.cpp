@@ -14,5 +14,5 @@ int driveserver::parseAndSend(const char buf[]) const{
 }
 int driveserver::start(){
     this->serialHandler = new serial_handler_ptr(new serialhandler());
-    this->socketHandler = new socket_handler_ptr(new SocketHandler(this));
+    this->socketHandler = new socket_handler_ptr(new SocketHandler());
 }

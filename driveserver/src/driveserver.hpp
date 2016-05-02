@@ -2,8 +2,8 @@
 *	Casper drive_server Header 
 *	Author @Pontus Pohl and @Linus Eiderström Swahn
 */
-#ifndef drive_server_h
-#define drive_server_h
+#ifndef driveserver_h
+#define driveserver_h
 
 #include <ostream>
 #include <iostream>

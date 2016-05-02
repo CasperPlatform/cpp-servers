@@ -9,9 +9,14 @@
 
 SocketHandler::SocketHandler(){}
 
-SocketHandler::SocketHandler(driveserver & server)
-{
-    this->driveServer = new drive_server_ptr(server);
+// SocketHandler::SocketHandler(driveserver & server)
+// {
+//     this->driveServer = new drive_server_ptr(server);
+ 
+// }
+
+int SocketHandler::setServer(driveserver & server){
+    
 }
 
 void SocketHandler::startServer(char *address, char *port)
