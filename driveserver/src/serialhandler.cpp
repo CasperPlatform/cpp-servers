@@ -1,7 +1,9 @@
+
+
 #include "serialhandler.hpp"
 
 
-serialhandler::serialhandler(void) : set_eol_char('\n')
+serialhandler::serialhandler(void) : end_of_line_char('\n')
 {
     
 }
@@ -11,10 +13,10 @@ serialhandler::~serialhandler(void)
 }
 char serialhandler::get_eol_char() const
 {
-    return this->end_of_line_char_;    
+    return this->end_of_line_char;
 }
 void serialhandler::set_eol_char(const char & c){
-    this->end_of_line_char_ = c;
+    this->end_of_line_char = c;
 }
 bool serialhandler::start(const char * com_port_name, int baud_rate){
     boost::system::error_code ec;
@@ -37,7 +39,7 @@ bool serialhandler::start(const char * com_port_name, int baud_rate){
         return false;
     }
 
-    port->set_option(boost::asio::serail_port_base::baud_rate(baud_rate));
+    port->set_option(boost::asio::serial_port_base::baud_rate(baud_rate));
 
     boost::thread t(boost::bind(&boost::asio::io_service::run, &io_service));
 
@@ -63,7 +65,7 @@ void serialhandler::stop()
 
 int serialhandler::write_string(const std::string &buf)
 {
-    return write_bytes(buf.c_str, buf.size());
+    return write_bytes(buf.c_str(), buf.size());
 }
 
 int serialhandler::write_bytes(const char *buf, const int &size)
