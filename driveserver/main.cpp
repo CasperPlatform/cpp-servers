@@ -8,9 +8,8 @@
 int main(){
     
     printf("test\n");
-
-
-    std::string comPort = "dev/cu.wchusbserial1420";
+/*
+    std::string comPort = "/dev/cu.wchusbserial1420";
 
     serialhandler sh;
 
@@ -25,10 +24,12 @@ int main(){
     sleep(5);
 
     sh.stop();
-    /*SocketTest* socket = new SocketTest();
+
+    */
+    SocketTest* socket = new SocketTest();
 
     socket->startServer("127.0.0.1", "10000");
-*/
+
     return 0;
     
 }
