@@ -21,7 +21,7 @@ if [ ! -d "$SRCDIR" ]; then
     exit 1
 fi    
 
-SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketTest.cpp" 
+SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketHandler.cpp $SRCDIR/driveserver.cpp"  
 
 COMMAND="c++ main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
 -lboost_system -lboost_date_time -lboost_thread-mt \

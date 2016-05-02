@@ -1,3 +1,11 @@
+/**
+*	Casper SerialHandler Header 
+*	Author @Pontus Pohl and Linus Eiderström Swahn
+*/
+
+#ifndef serial_handler_h
+#define serial_handler_h
+
 #include <boost/asio.hpp>
 #include <boost/asio/serial_port.hpp>
 #include <boost/system/error_code.hpp>
@@ -54,3 +62,4 @@ protected:
 	virtual void on_receive(const std::string &data);
 
 };
+#endif // serial_handler_h

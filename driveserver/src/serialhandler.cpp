@@ -1,4 +1,7 @@
-
+/**
+*	Casper serialHandler Implementation 
+*	Author @Pontus Pohl and @Linus Eiderström Swahn
+*/
 
 #include "serialhandler.hpp"
 

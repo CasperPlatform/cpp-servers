@@ -3,7 +3,7 @@
 */
 
 #include "src/serialhandler.hpp"
-#include "src/SocketTest.h"
+#include "src/SocketHandler.hpp"
 #include "sqlite3.h"
 
 static sqlite3 *sqlite_open()
@@ -53,7 +53,7 @@ int main(){
     sh.stop();
 
     */
-    SocketTest* socket = new SocketTest();
+    SocketHandler* socket = new SocketHandler();
 
     socket->startServer("127.0.0.1", "6000");
 

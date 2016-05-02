@@ -1,24 +1,27 @@
-//
-// Created by Linus Eiderström Swahn on 01/05/16.
-//
+/**
+*	Casper SocketHandler Implementation 
+*	Author @Pontus Pohl and @Linus Eiderström Swahn
+*/
 
 
-#include <arpa/inet.h>
-#include "SocketTest.h"
 
-SocketTest::SocketTest()
+#include <SocketHandler.hpp>
+
+SocketHandler::SocketHandler(){}
+
+SocketHandler::SocketHandler(driveserver & server)
 {
-
+    this->driveServer = new drive_server_ptr(server);
 }
 
-void SocketTest::startServer(char *address, char *port)
+void SocketHandler::startServer(char *address, char *port)
 {
     struct sockaddr_storage their_addr;
     socklen_t addr_size;
     int socketDescriptor, newSocketDescriptor;
     int numbytes;
 
-    int MAXBUFLEN = 100;
+    int MAXBUFLEN = 24;
     char buf[MAXBUFLEN];
     char s[INET6_ADDRSTRLEN];
 
@@ -52,7 +55,16 @@ void SocketTest::startServer(char *address, char *port)
                inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *) &their_addr), s, sizeof s));
         printf("listener: packet is %d bytes long\n", numbytes);
         buf[numbytes] = '\0';
-        printf("listener: packet contains \"%s\"\n", buf);
+        
+        if(driveServer){
+            printf("Recieved buf with content\n \"%s\"\n", buf);
+            printf("sending buf to driveserver\n");
+        }
+        else{
+            printf("driveServer is null, cannot send buf\n")
+        }
+     
+        //printf("listener: packet contains \"%s\"\n", buf);
     }
 }
 
@@ -61,7 +73,7 @@ void listenForMessages()
 
 }
 
-void *SocketTest::get_in_addr(struct sockaddr *sa)
+void *SocketHandler::get_in_addr(struct sockaddr *sa)
 {
     if (sa->sa_family == AF_INET) {
         return &(((struct sockaddr_in*)sa)->sin_addr);
@@ -70,7 +82,7 @@ void *SocketTest::get_in_addr(struct sockaddr *sa)
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
-void SocketTest::getAddress(char *address, char *port)
+void SocketHandler::getAddress(char *address, char *port)
 {
     memset(&hints, 0, sizeof hints); // make sure the struct is empty
     hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
@@ -84,7 +96,7 @@ void SocketTest::getAddress(char *address, char *port)
     }
 }
 
-void SocketTest::showAddress(char *address)
+void SocketHandler::showAddress(char *address)
 {
     getAddress(address, NULL);
 
