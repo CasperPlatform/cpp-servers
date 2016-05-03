@@ -6,6 +6,8 @@
 #ifndef SOCKETHANDLER_SOCKETHANDLER_H
 #define SOCKETHANDLER_SOCKETHANDLER_H
 
+
+
 class driveserver;
 #include <boost/asio.hpp>
 #include <boost/asio/serial_port.hpp>
@@ -13,14 +15,12 @@ class driveserver;
 #include <boost/system/system_error.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
-//#include "driveserver.hpp"
+//#include <driveserver.hpp>
+
 
 typedef boost::shared_ptr<driveserver> drive_server_ptr;
 
@@ -34,9 +34,10 @@ private:
     void *get_in_addr(struct sockaddr *sa);
 public:
     SocketHandler();
-    //SocketHandler(driveserver *server);
-    int setServer(driveserver *server);
     ~SocketHandler();
+    SocketHandler(driveserver * server);
+    //int setServer(driveserver & server) const;
+    
 
 
     void startServer(char *address, char *port);

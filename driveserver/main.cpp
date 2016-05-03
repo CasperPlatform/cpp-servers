@@ -2,8 +2,8 @@
 * 
 */
 
-#include "src/serialhandler.hpp"
-#include "src/SocketHandler.hpp"
+
+#include <driveserver.hpp>
 #include "sqlite3.h"
 
 static sqlite3 *sqlite_open()
@@ -53,9 +53,11 @@ int main(){
     sh.stop();
 
     */
-    SocketHandler* socket = new SocketHandler();
+    driveserver drive;
+    drive.start();
+    //SocketHandler* socket = new SocketHandler();
 
-    socket->startServer("127.0.0.1", "6000");
+    //socket->startServer("127.0.0.1", "6000");
 
     return 0;
 }

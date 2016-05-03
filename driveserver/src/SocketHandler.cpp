@@ -6,18 +6,18 @@
 
 
 #include <SocketHandler.hpp>
-
+#include <driveserver.hpp>
 SocketHandler::SocketHandler(){}
-
-// SocketHandler::SocketHandler(driveserver & server)
-// {
-//     this->driveServer = new drive_server_ptr(server);
- 
-// }
-
-int SocketHandler::setServer(driveserver & server){
-    
+SocketHandler::~SocketHandler(){}
+SocketHandler::SocketHandler(driveserver * server)
+{
+    this->driveServer = drive_server_ptr(server);
 }
+
+// int SocketHandler::setServer(driveserver & server) const {
+//     //this->driveServer = drive_server_ptr(server);
+//     return 0;
+// }
 
 void SocketHandler::startServer(char *address, char *port)
 {
@@ -62,8 +62,10 @@ void SocketHandler::startServer(char *address, char *port)
         buf[numbytes] = '\0';
         
         if(driveServer){
+            
             printf("Recieved buf with content\n \"%s\"\n", buf);
             printf("sending buf to driveserver\n");
+            this->driveServer->parseAndSend(buf);
         }
         else{
             printf("driveServer is null, cannot send buf\n");

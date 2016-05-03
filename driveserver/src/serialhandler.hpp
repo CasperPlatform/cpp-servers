@@ -6,17 +6,15 @@
 #ifndef serial_handler_h
 #define serial_handler_h
 
+
+//class driveserver;
+//#include <driveserver.hpp>
 #include <boost/asio.hpp>
 #include <boost/asio/serial_port.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/system/system_error.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-
-#include <ostream>
-#include <iostream>
-#include <string>
-#include <vector>
 
 typedef boost::shared_ptr<boost::asio::serial_port> serial_port_ptr;
 
