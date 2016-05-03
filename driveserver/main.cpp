@@ -65,7 +65,7 @@ int main(){
 
 
 ////// SQLITE3 Snippets ///////
-//  sqlite3 *sqlite_conn;
+//     sqlite3 *sqlite_conn;
 //     sqlite3_stmt *stmt;
 
 //     list_type = (char *)cbdata;

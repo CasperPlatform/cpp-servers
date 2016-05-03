@@ -26,7 +26,7 @@ void SocketHandler::startServer(char *address, char *port)
     int socketDescriptor, newSocketDescriptor;
     int numbytes;
 
-    int MAXBUFLEN = 24;
+    int MAXBUFLEN = 25;
     char buf[MAXBUFLEN];
     char s[INET6_ADDRSTRLEN];
 
@@ -59,13 +59,20 @@ void SocketHandler::startServer(char *address, char *port)
         printf("listener: got packet from %s\n",
                inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *) &their_addr), s, sizeof s));
         printf("listener: packet is %d bytes long\n", numbytes);
+        
+     
+        
         buf[numbytes] = '\0';
+        
+        for(int i = 0; i<15;i++){
+            printf("%d\n",buf[i]);
+        }
         
         if(driveServer){
             
-            printf("Recieved buf with content\n \"%s\"\n", buf);
+            printf("Recieved buf with content\n\"%s\"\n", buf);
             printf("sending buf to driveserver\n");
-            this->driveServer->parseAndSend(buf);
+            this->driveServer->parseAndSend(buf,numbytes);
         }
         else{
             printf("driveServer is null, cannot send buf\n");
