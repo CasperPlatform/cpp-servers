@@ -55,11 +55,11 @@ int driveserver::parseAndSend(char buf[], int len) {
         return -1;
     }
     // extract token.
-    char tmp[16];
+    char tmp[17];
     for(int i = 1; i < 17; i++){
         tmp[i-1] = read_buf[i];    
     }
-    
+    tmp[16] = '\0';
     printf("token is %s\n",tmp);
     // Do sqlite stuff if needed
     if(token == ""){
@@ -83,14 +83,113 @@ int driveserver::verifyToken(const char token[]) const{
     sqlite3_stmt *stmt;
     char *query;
     
+   
+
     if ((sqlite_conn = sqlite_open()) == NULL)
     {
         printf("Failed to open db\n");
         return -1;
     }
     
-    return -1;
+    
+    time_t rawtime;
+    time(&rawtime);
+    struct tm *currentTime;
+    currentTime = localtime ( &rawtime );
+    const int TIME_STRING_LENGTH = 20;
+    char buffer [TIME_STRING_LENGTH];
+    
+    strftime(buffer, TIME_STRING_LENGTH, "%Y-%m-%d %H:%M:%S", currentTime);
+
+    asprintf(&query, 
+            "select userId from tokens where token=\"%s\" and expiration>\"%s\""
+            ,token
+            ,buffer);
+    
+    printf("query is : %s\n", query);
+    //printf("%s\n",buffer);
+  
+    if (sqlite3_prepare_v2(sqlite_conn, query, strlen(query), &stmt, NULL) != SQLITE_OK)
+    {
+        free(query);
+        return -1;
+    }   
+   
+    int uid;
+    int c = 0;
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        c++;
+        printf("got something back\n");
+        uid = sqlite3_column_int(stmt,0);
+        printf("uid is: %d\n", uid);
+    }
+    if(c == 0){
+        printf("no token found\n");
+        free(query);
+        //free(currentTime);
+        return -1;
+    }
+    else
+    {
+        //free(currentTime);
+        
+        time(&rawtime);
+        currentTime = localtime ( &rawtime );
+        
+        for(int i = 0; i < 25; i++){
+            if(currentTime->tm_min == 59){
+                currentTime->tm_min = 0;
+                currentTime->tm_hour += 1;
+                continue;
+            }
+            currentTime->tm_min++;
+        }
+        strftime(buffer, TIME_STRING_LENGTH, "%Y-%m-%d %H:%M:%S", currentTime);
+        
+        query = "";
+        asprintf(&query,
+                "update tokens set expiration=\"%s\" where userId=%d",
+                buffer,
+                uid);
+        printf("query2 is : %s\n", query);
+        
+        if (sqlite3_prepare_v2(sqlite_conn, query, strlen(query), &stmt, NULL) != SQLITE_OK)
+        {
+            free(query);
+            return -1;
+        }
+        free(query);
+        // sqlite3_bind_text(stmt,1,buffer,-1,SQLITE_TRANSIENT);
+        // sqlite3_bind_int(stmt,2,uid);
+        sqlite3_step(stmt);
+        
+    }
+    
+    // free(token);
+    // free(tm);
+    
+    
+    printf("statement ok\n");
+    return 1;
 }
+
+
+// conn = sqlite3.connect('/home/pi/CASPER/db.db', detect_types=sqlite3.PARSE_DECLTYPES)
+//         c = conn.cursor()
+
+//         c.execute("select userId from tokens where token=? and expiration>?", (token, datetime.datetime.now()))
+
+//         row = c.fetchone()
+//         print row
+//         if row is None:
+//             print 'No token found.'
+//             return
+
+//         c.execute("update tokens set expiration=? where userId=?", (datetime.datetime.now() + datetime.timedelta(minutes = 25), row[0]))
+//         conn.commit()
+
+
 
 sqlite3 * driveserver::sqlite_open()
 {
@@ -102,8 +201,6 @@ sqlite3 * driveserver::sqlite_open()
         printf("ohoh %d\n", error);
         return NULL;
     }
-    
-    
     return sqlite_conn;
 }
 

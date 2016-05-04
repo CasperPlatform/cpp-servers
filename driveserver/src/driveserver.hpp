@@ -21,6 +21,7 @@
 #include <iostream>
 #include <array>
 #include <sqlite3.h>
+#include <time.h>
 #include <SocketHandler.hpp>
 #include <serialhandler.hpp>
 
