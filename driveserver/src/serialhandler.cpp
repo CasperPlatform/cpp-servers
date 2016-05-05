@@ -23,16 +23,16 @@ void serialhandler::set_eol_char(const char & c){
 }
 bool serialhandler::start(const char * com_port_name, int baud_rate){
     boost::system::error_code ec;
-
+    printf("35 in start()\n");
     if(port)
     {
         std::cout << "Port allready open." << std::endl;
 
         return false;
     }
-
+    
     port = serial_port_ptr(new boost::asio::serial_port(io_service));
-
+    
     port->open(com_port_name, ec);
 
     if(ec)

@@ -5,6 +5,8 @@
 
 #ifndef driveserver_hpp
 #define driveserver_hpp
+class SocketHandler;
+class serialhandler;
 #include <boost/asio.hpp>
 #include <boost/asio/serial_port.hpp>
 #include <boost/system/error_code.hpp>
@@ -22,8 +24,8 @@
 #include <array>
 #include <sqlite3.h>
 #include <time.h>
-#include <SocketHandler.hpp>
-#include <serialhandler.hpp>
+// #include <SocketHandler.hpp>
+// #include <serialhandler.hpp>
 
 // flag defs
 #define DRIVE_FLAG 0x44

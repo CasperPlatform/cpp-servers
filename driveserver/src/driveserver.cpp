@@ -3,18 +3,23 @@
 *	Author @Pontus Pohl and @Linus Eiderström Swahn
 */
 #include <driveserver.hpp>
-
+#include <SocketHandler.hpp>
+#include <serialhandler.hpp>
 driveserver::driveserver(){
     read_buf.fill(0);
     token = "";
+
+    
 }
 driveserver::~driveserver(){}
 
 int driveserver::start(){
+    printf("driveserver start()\n");
     this->serialHandler = serial_handler_ptr(new serialhandler());
     this->socketHandler = socket_handler_ptr(new SocketHandler(this));
     //this->socketHandler->setServer(*this);
     this->socketHandler->startServer("127.0.0.1", "9999");
+    serialHandler->start("/dev/ttyUSB0",9600);
     return 0;
 }
 int driveserver::parseAndSend(char buf[], int len) {
@@ -43,7 +48,7 @@ int driveserver::parseAndSend(char buf[], int len) {
                 break;
             }
         }
-        printf("%d\n",buf[i]);
+        //printf("parsing nr %d: %d\n",i,buf[i]);
     }
     
     // check if message is error free.
@@ -71,10 +76,20 @@ int driveserver::parseAndSend(char buf[], int len) {
         token = std::string(tmp);   
     }
     // prepare for serial delivery
-    serialHandler
-  
-    
-    
+    char fmsg[8];
+    fmsg[0] = read_buf[0];
+    for(int i = 0; i < 8; i++){
+        fmsg[i+1] = read_buf[i+17];
+    }
+    for(int i = 0; i < 8;i++){
+        printf("serial msg nr %d: %d\n",i,fmsg[i]);
+    }
+   
+    if(serialHandler->write_bytes(fmsg,8) == -1){
+        printf("serialwrite failed\n");
+        return -1;
+    }
+    printf("successfully wrote to serial\n");  
     return 0;
 }
 int driveserver::verifyToken(const char token[]) const{
@@ -149,7 +164,8 @@ int driveserver::verifyToken(const char token[]) const{
         }
         strftime(buffer, TIME_STRING_LENGTH, "%Y-%m-%d %H:%M:%S", currentTime);
         
-        query = "";
+        asprintf(&query,"");
+     
         asprintf(&query,
                 "update tokens set expiration=\"%s\" where userId=%d",
                 buffer,

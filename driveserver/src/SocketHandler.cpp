@@ -64,15 +64,18 @@ void SocketHandler::startServer(char *address, char *port)
         
         buf[numbytes] = '\0';
         
-        for(int i = 0; i<15;i++){
-            printf("%d\n",buf[i]);
+        for(int i = 0; i<24;i++){
+            printf("packet nr :%d: %d\n",i,buf[i]);
         }
         
         if(driveServer){
             
             printf("Recieved buf with content\n\"%s\"\n", buf);
             printf("sending buf to driveserver\n");
-            this->driveServer->parseAndSend(buf,numbytes);
+            if(this->driveServer->parseAndSend(buf,numbytes) == -1){
+                
+            }
+            
         }
         else{
             printf("driveServer is null, cannot send buf\n");

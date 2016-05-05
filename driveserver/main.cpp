@@ -6,35 +6,15 @@
 #include <driveserver.hpp>
 #include "sqlite3.h"
 
-static sqlite3 *sqlite_open()
-{
-    sqlite3 *sqlite_conn;
 
-    int error;
-    if ((error = sqlite3_open("db/db.db", &sqlite_conn)) != 0)
-    {
-        printf("ohoh %d\n", error);
-        return NULL;
-    }
-
-    return sqlite_conn;
-}
 
 int main(){
     
+
     
-    sqlite3 *sqlite_conn;
+
     
-    if ((sqlite_conn = sqlite_open()) == NULL)
-    {   
-        printf("sqlite3 failed... exiting");
-        return -1;
-    }
-    else{
-        printf("DB-open!\n");
-    }
-    
-    printf("test\n");
+  
 /*
     std::string comPort = "/dev/cu.wchusbserial1420";
 
