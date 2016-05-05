@@ -25,7 +25,7 @@ SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketHandler.cpp $SRCDIR/driveserve
 
 COMMAND="g++ -std=c++11 main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
 -lboost_system -lboost_date_time -lboost_thread-mt \
--lpthread -lsqlite3 -L/usr/local/lib -L/usr/lib -o build/serialtest"
+-lpthread -L/usr/local/lib -L/usr/lib -o build/serialtest"
 
 #COMMAND="gcc -o build/sens src/mqttClient.c \
 #-I/usr/local/include  "-I$MQQTINCLUDE/" "$MQQTADDITIONAL" \
