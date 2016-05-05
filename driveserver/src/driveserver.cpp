@@ -14,7 +14,7 @@ int driveserver::start(){
     this->serialHandler = serial_handler_ptr(new serialhandler());
     this->socketHandler = socket_handler_ptr(new SocketHandler(this));
     //this->socketHandler->setServer(*this);
-    this->socketHandler->startServer("127.0.0.1", "6000");
+    this->socketHandler->startServer("127.0.0.1", "9999");
     return 0;
 }
 int driveserver::parseAndSend(char buf[], int len) {
@@ -71,7 +71,7 @@ int driveserver::parseAndSend(char buf[], int len) {
         token = std::string(tmp);   
     }
     // prepare for serial delivery
-    
+    serialHandler
   
     
     
@@ -127,6 +127,8 @@ int driveserver::verifyToken(const char token[]) const{
     if(c == 0){
         printf("no token found\n");
         free(query);
+        sqlite3_finalize(stmt);
+        sqlite3_close(sqlite_conn);
         //free(currentTime);
         return -1;
     }
@@ -157,12 +159,16 @@ int driveserver::verifyToken(const char token[]) const{
         if (sqlite3_prepare_v2(sqlite_conn, query, strlen(query), &stmt, NULL) != SQLITE_OK)
         {
             free(query);
+            sqlite3_finalize(stmt);
+            sqlite3_close(sqlite_conn);
             return -1;
         }
         free(query);
         // sqlite3_bind_text(stmt,1,buffer,-1,SQLITE_TRANSIENT);
         // sqlite3_bind_int(stmt,2,uid);
         sqlite3_step(stmt);
+        sqlite3_finalize(stmt);
+        sqlite3_close(sqlite_conn);
         
     }
     
