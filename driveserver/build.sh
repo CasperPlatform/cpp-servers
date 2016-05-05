@@ -23,7 +23,7 @@ fi
 
 SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketHandler.cpp $SRCDIR/driveserver.cpp"  
 
-COMMAND="c++ main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
+COMMAND="g++ -std=c++11 main.cpp $SRCFILES -I/usr/local/include "-I$SRCDIR"  \
 -lboost_system -lboost_date_time -lboost_thread-mt \
 -lpthread -lsqlite3 -L/usr/local/lib -L/usr/lib -o build/serialtest"
 
