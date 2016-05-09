@@ -19,10 +19,10 @@ echo $SRCDIR
 if [ ! -d "$SRCDIR" ]; then
     echo "SRC-DIR Missing"
     exit 1
-fi    
+fi
 
 SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketHandler.cpp $SRCDIR/driveserver.cpp"
-  
+
 
 COMMAND="g++ -std=c++11 main.cpp $SRCFILES -I/usr/local/include -I/usr/include "-I$SRCDIR"  \
 -lboost_system -lboost_date_time -lboost_thread-mt \
