@@ -26,10 +26,10 @@ ADDITIONALHEADERS="-I/files/src/rpi_src/usr/include -I/files/src/rpi_src/usr/inc
 if [ ! -d "$SRCDIR" ]; then
     echo "SRC-DIR Missing"
     exit 1
-fi    
+fi
 
 SRCFILES="$SRCDIR/serialhandler.cpp $SRCDIR/SocketHandler.cpp $SRCDIR/driveserver.cpp"
-  
+
 
 COMMAND="$COMPILER -std=c++11 main.cpp $SRCFILES -I/usr/local/include -I/usr/include "-I$SRCDIR"  \
 $ADDITIONALHEADERS -L/usr/local/lib -L/usr/lib $ADDITIONALLIBS \
