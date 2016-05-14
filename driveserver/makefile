@@ -1,51 +1,46 @@
-SRCDIR=/files/src/buildsrc/driveserver/src
-ARM_PREFIX= arm-linux-gnueabihf-
-CC   = $(ARM_PREFIX)g++
-SRC += $(SRCDIR)/serialhandler.cpp 
-SRC += $(SRCDIR)/SocketHandler.cpp 
-SRC += $(SRCDIR)/driveserver.cpp
-TARGET = driveserver
+SRCDIR=/src/ros
+DRIVEDIR=$(SRCDIR)/driveserver
+CC   = g++
+SRC += $(LIDARDIR)/main.cpp 
+
+TARGET = $(LIDARDIR)/build/driveserver
 
 LIBRARY += boost_system
 LIBRARY += boost_date_time
-LIBRARY += boost_thread-mt
+LIBRARY += boost_thread
 LIBRARY += pthread
+LIBRARY += roscpp
+LIBRARY += rosconsole
+LIBRARY += rostime
 LIBRARY += sqlite3
+#LIBRARY += sqlite3
 
 
-LIBRARYDIR += /files/src/rpi_src/lib/arm-linux-gnueabihf
-LIBRARYDIR += /files/src/rpi_src/usr/lib/arm-linux-gnueabihf
-LIBRARYDIR += /files/src/rpi_src/lib
-LIBRARYDIR += /files/src/rpi_src/usr/lib
+LIBRARYDIR += /usr/lib
+LIBRARYDIR += /usr/lib/arm-linux-gnueabihf
+LIBRARYDIR += /lib
 
-XLINK_LIBDIR += /files/src/rpi_src/lib/arm-linux-gnueabihf
-XLINK_LIBDIR += /files/src/rpi_src/usr/lib/arm-linux-gnueabihf
-XLINK_LIBDIR += /files/src/rpi_src/usr/lib
 
-INCLUDEDIR += $(SRCDIR)
-INCLUDEDIR += /files/src/rpi_src/usr/include
-INCLUDEDIR += /files/src/rpi_src/usr/include/arm-linux-gnueabihf
-# INCLUDEDIR += $(HOME)/rpi/usr/include/atk-1.0
-# INCLUDEDIR += $(HOME)/rpi/usr/include/cairo
-# INCLUDEDIR += $(HOME)/rpi/usr/include/gdk-pixbuf-2.0
-# INCLUDEDIR += $(HOME)/rpi/usr/include/freetype2
-# INCLUDEDIR += $(HOME)/rpi/usr/include/glib-2.0
-# INCLUDEDIR += $(HOME)/rpi/usr/lib/arm-linux-gnueabihf/glib-2.0/include
-# INCLUDEDIR += $(HOME)/rpi/usr/include/pixman-1
-# INCLUDEDIR += $(HOME)/rpi/usr/include/libpng12
+
+
+#NCLUDEDIR += $(SRCDIR)/src
+INCLUDEDIR += /usr/include
+INCLUDEDIR += $(DRIVEDIR)/src
+
 
 OPT = -std=c++11
 DEBUG = -g
 WARN= -Wall
 PTHREAD= -pthread
+LINK    = -Wl,-rpath,
 
 INCDIR  = $(patsubst %,-I%,$(INCLUDEDIR))
 LIBDIR  = $(patsubst %,-L%,$(LIBRARYDIR))
 LIB    = $(patsubst %,-l%,$(LIBRARY))
-XLINKDIR = $(patsubst %,-Xlinker -rpath-link=%,$(XLINK_LIBDIR))
+LINKDIR = $(patsubst %,$(LINK)%,$(LINK_LIBDIR))
 
 all:
-	$(CC) $(OPT) $(DEBUG) $(LIBDIR) $(PTHREAD) $(INCDIR) $(XLINKDIR) -nostartfiles $(LIB) $(SRC) -o $(TARGET)
+	$(CC) $(SRC) -o $(TARGET) $(INCDIR) $(LIBDIR) $(LINKDIR) $(LIB) 
 
 clean:
 	rm -rf $(TARGET)

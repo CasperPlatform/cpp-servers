@@ -4,6 +4,7 @@
 #include <sensor_msgs/LaserScan.h>
 #include <std_msgs/UInt16.h>
 #include <lidarScanner.hpp>
+#include <sqlite3.h>
 // Standard C++ entry point
 int main(int argc, char** argv) {
 
