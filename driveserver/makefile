@@ -40,7 +40,7 @@ LIB    = $(patsubst %,-l%,$(LIBRARY))
 LINKDIR = $(patsubst %,$(LINK)%,$(LINK_LIBDIR))
 
 all:
-	$(CC) $(SRC) -o $(TARGET) $(INCDIR) $(LIBDIR) $(LINKDIR) $(LIB) 
+	$(CC) $(OPT) $(SRC) -o $(TARGET) $(INCDIR) $(LIBDIR) $(LINKDIR) $(LIB) 
 
 clean:
 	rm -rf $(TARGET)
