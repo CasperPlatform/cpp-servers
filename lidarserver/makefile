@@ -1,7 +1,7 @@
 SRCDIR=/src/ros
 LIDARDIR=$(SRCDIR)/lidarserver
 CC   = g++
-SRC += $(LIDARDIR)/main.cpp 
+SRC += $(LIDARDIR)/lidar_server_publisher.cpp 
 
 TARGET = $(LIDARDIR)/build/lidarserver
 

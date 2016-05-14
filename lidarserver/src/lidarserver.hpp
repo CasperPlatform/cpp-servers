@@ -4,7 +4,7 @@
 */
 
 #ifndef lidarserver_hpp
-#define ldiarserver_hpp
+#define lidarserver_hpp
 class SocketHandler;
 class serialhandler;
 #include <boost/asio.hpp>
