@@ -1,9 +1,9 @@
 SRCDIR=/src/ros
 DRIVEDIR=$(SRCDIR)/driveserver
 CC   = g++
-SRC += $(LIDARDIR)/main.cpp 
+SRC += $(DRIVEDIR)/main.cpp 
 
-TARGET = $(LIDARDIR)/build/driveserver
+TARGET = $(DRIVEDIR)/build/driveserver
 
 LIBRARY += boost_system
 LIBRARY += boost_date_time
