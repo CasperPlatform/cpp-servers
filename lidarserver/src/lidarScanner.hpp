@@ -19,7 +19,7 @@ namespace lidar_scanner_driver{
 		lidarScanner(const std::string& port, uint32_t baud_rate, boost::asio::io_service& io);
 		~lidarScanner();
 		void poll(sensor_msgs::LaserScan::Ptr scan);
-		void close(){ shutting_down_ = true; };
+		void close(){ shutting_down = true; };
 	private:
 	    std::string               port;
 	    uint32_t                  baud_rate;
