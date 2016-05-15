@@ -15,7 +15,7 @@ ros::NodeHandle priv_nh("~");
  // Start the node resource managers (communication, time, etc)
  //ros::start();
  // Broadcast a simple log message
- ROS_INFO_STREAM("Hello, world!");
+ ROS_INFO_STREAM("Lidar Scanner Publisher");
  // Process ROS callbacks until receiving a SIGINT (ctrl-c)
  ros::spin();
  // Stop the node's resources

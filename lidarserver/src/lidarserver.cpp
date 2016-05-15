@@ -5,7 +5,8 @@
 #include <lidarserver.hpp>
 #include <SocketHandler.hpp>
 #include <serialhandler.hpp>
-lidarserver::driveserver(){
+#include <lidarScanner.cpp>
+lidarserver::lidarserver(const std::string port, int baud_rate){
     read_buf.fill(0);
     for(int i = 0; i>1; i++){
         lidarStart[i]   = 'L';
@@ -14,7 +15,12 @@ lidarserver::driveserver(){
         lidarStop[i+1]  = 's';
     }
     token = "";
+    this->port = port;
+    this->baud_rate = baud_rate;
+    this->polling = false;
     this->serialHandler = serial_handler_ptr(new serialhandler());
+    this->lidarScanner  = lidar_scanner_ptr(new lidarScanner(port,
+                                                            baud_rate));
     this->socketHandler = socket_handler_ptr(new SocketHandler(this));
 
 }
@@ -31,7 +37,7 @@ int lidarserver::start(){
     //this->socketHandler->startServer("0.0.0.0", "9999");
     return 0;
 }
-int lidarserver::getMapMsg(){
+int lidarserver::startPolling(){
     
     if(serialHandler->write_bytes(this->lidarStart,2) == -1){
         printf("serialwrite failed\n");

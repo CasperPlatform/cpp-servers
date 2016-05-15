@@ -7,6 +7,7 @@
 #define lidarserver_hpp
 class SocketHandler;
 class serialhandler;
+class lidarScanner;
 #include <boost/asio.hpp>
 #include <boost/asio/serial_port.hpp>
 #include <boost/system/error_code.hpp>
@@ -57,21 +58,26 @@ class serialhandler;
 
 typedef boost::shared_ptr<SocketHandler> socket_handler_ptr;
 typedef boost::shared_ptr<serialhandler> serial_handler_ptr;
-
+typedef boost::shared_ptr<lidarScanner>  lidar_scanner_ptr;
 class lidarserver{
 
 private:    
     serial_handler_ptr serialHandler;
-    socket_handler_ptr socketHandler;     
+    socket_handler_ptr socketHandler;
+    lidar_scanner_ptr  lidarScanner;     
     std::array<char,READ_BUF> read_buf;
     std::string token; 
+    boost::asio::io_service io_service;
+    std::string port;
+    int baud_rate;
     char lidarStart[2];
     char lidarStop[2];
+    bool polling;
     static sqlite3 *sqlite_open();  
 public:
-    lidarserver();
+    lidarserver(const std::string port, int baud_rate);
     ~lidarserver();    
-    int getMapMsg();    
+    int startPolling();    
     int parseRequest(std::array<char,20> buf, int len);
     int start();
     int verifyToken(const char token[]) const;
