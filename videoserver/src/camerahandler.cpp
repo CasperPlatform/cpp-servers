@@ -35,3 +35,8 @@ camerahandler::camerahandler()
     //free resrources    
     delete data;
 }
+
+camerahandler::~camerahandler()
+{
+    
+}
