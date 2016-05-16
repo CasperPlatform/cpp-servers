@@ -4,6 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
 #include <raspicam/raspicam.h>
 
 class camerahandler
@@ -13,6 +14,6 @@ class camerahandler
         ~camerahandler();
     private:
         
-}
+};
 
 #endif // camera_handler_hpp
