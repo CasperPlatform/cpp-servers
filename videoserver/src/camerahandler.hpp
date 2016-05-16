@@ -1,7 +1,7 @@
 #ifndef camera_handler_hpp
 #define camera_handler_hpp
 
-#include <ctime>
+#include <unistd.h>
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
