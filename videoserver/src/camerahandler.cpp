@@ -3,6 +3,7 @@
 camerahandler::camerahandler()
 {
     raspicam::RaspiCam Camera; //Camera object
+    
     //Open camera 
     std::cout<<"Opening Camera..."<<std::endl;
     if ( !Camera.open()) 
