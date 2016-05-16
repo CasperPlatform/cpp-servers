@@ -40,7 +40,7 @@ camerahandler::camerahandler()
     
     if ((outfile = fopen("testjpg.jpeg", "wb")) == NULL) 
     {
-        fprintf(stderr, "can't open %s\n", filename);
+        fprintf(stderr, "can't open %s\n", "testjpg.jpeg");
         return;
     }
     
@@ -53,11 +53,11 @@ camerahandler::camerahandler()
     
     jpeg_set_defaults(&cinfo);
     
-    jpeg_set_quality(&cinfo, quality, TRUE /* limit to baseline-JPEG values */);
+    jpeg_set_quality(&cinfo, 50, TRUE /* limit to baseline-JPEG values */);
 
     jpeg_start_compress(&cinfo, TRUE);
 
-    row_stride = image_width * 3;	/* JSAMPLEs per row in image_buffer */
+    row_stride = Camera.getWidth() * 3;	/* JSAMPLEs per row in image_buffer */
 
     while (cinfo.next_scanline < cinfo.image_height) 
     {
@@ -65,7 +65,7 @@ camerahandler::camerahandler()
         * Here the array is only one element long, but you could pass
         * more than one scanline at a time if that's more convenient.
         */
-        row_pointer[0] = & image_buffer[cinfo.next_scanline * row_stride];
+        row_pointer[0] = & data[cinfo.next_scanline * row_stride];
         (void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
     }
 
