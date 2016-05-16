@@ -15,7 +15,7 @@ camerahandler::camerahandler()
     //wait a while until camera stabilizes
     std::cout<<"Sleeping for 3 secs"<<std::endl;
     
-    usleep(3000);
+    usleep(3000000);
     
     //capture
     Camera.grab();
