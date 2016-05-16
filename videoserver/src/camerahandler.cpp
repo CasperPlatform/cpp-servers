@@ -17,6 +17,7 @@ camerahandler::camerahandler()
     
     usleep(2000000);
     
+    
     //capture
     Camera.grab();
     
@@ -26,6 +27,10 @@ camerahandler::camerahandler()
     //extract the image in rgb format
     Camera.retrieve ( data, raspicam::RASPICAM_FORMAT_RGB );//get camera image
     
+    struct timeval  tv1, tv2;
+    gettimeofday(&tv1, NULL);
+    /* Program code to execute here */
+     
     struct jpeg_compress_struct cinfo;
     struct jpeg_error_mgr jerr;
      
@@ -75,6 +80,7 @@ camerahandler::camerahandler()
     
     jpeg_destroy_compress(&cinfo);
 
+    
     /*
     //save
     std::ofstream outFile ( "raspicam_image.ppm",std::ios::binary );
@@ -85,6 +91,9 @@ camerahandler::camerahandler()
     //free resrources   
     */ 
     delete data;
+    
+    gettimeofday(&tv2, NULL);
+    std::cout << "Time taken in execution = " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std:endl;
 }
 
 camerahandler::~camerahandler()

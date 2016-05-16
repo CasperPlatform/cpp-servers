@@ -9,6 +9,7 @@
 #include <setjmp.h>
 #include <raspicam/raspicam.h>
 #include <boost/gil/extension/io/jpeg_io.hpp>
+#include <sys/time.h>
 
 class camerahandler
 {
