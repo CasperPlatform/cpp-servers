@@ -14,3 +14,5 @@ class camerahandler
     private:
         
 }
+
+#endif // camera_handler_hpp
