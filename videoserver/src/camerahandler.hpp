@@ -13,6 +13,6 @@ class camerahandler
         ~camerahandler();
     private:
         
-}
+};
 
 #endif // camera_handler_hpp
