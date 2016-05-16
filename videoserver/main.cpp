@@ -1,4 +1,5 @@
 #include <videoserver.hpp>
+#include <camerahandler.hpp>
 #include <sockethandler.hpp>
 #include <stdio.h>
 #include <iostream>
@@ -7,7 +8,9 @@ int main()
 {
     printf("Running main.\n");  
     
-    try
+    camerahandler camera;
+    
+    /*try
     {
         sockethandler server(6000);
     }
@@ -18,7 +21,7 @@ int main()
     
     printf("Waiting for message.");
     
-    
+    */
     printf("Stopping main.\n");  
 
     return 0; 
