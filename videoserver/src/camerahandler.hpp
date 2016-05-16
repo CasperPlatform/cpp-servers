@@ -5,7 +5,10 @@
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
+#include "jpeglib.h"
+#include <setjmp.h>
 #include <raspicam/raspicam.h>
+#include <boost/gil/extension/io/jpeg_io.hpp>
 
 class camerahandler
 {

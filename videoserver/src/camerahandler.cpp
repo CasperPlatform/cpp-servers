@@ -26,13 +26,64 @@ camerahandler::camerahandler()
     //extract the image in rgb format
     Camera.retrieve ( data, raspicam::RASPICAM_FORMAT_RGB );//get camera image
     
+    struct jpeg_compress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+     
+    FILE * outfile;		/* target file */
+    JSAMPROW row_pointer[1];	/* pointer to JSAMPLE row[s] */
+    int row_stride;		/* physical row width in image buffer */
+
+    cinfo.err = jpeg_std_error(&jerr);
+    
+    /* Now we can initialize the JPEG compression object. */
+    jpeg_create_compress(&cinfo);
+    
+    if ((outfile = fopen("testjpg.jpeg", "wb")) == NULL) 
+    {
+        fprintf(stderr, "can't open %s\n", filename);
+        return;
+    }
+    
+    jpeg_stdio_dest(&cinfo, outfile);
+    
+    cinfo.image_width = Camera.getWidth(); 	/* image width and height, in pixels */
+    cinfo.image_height = Camera.getHeight();
+    cinfo.input_components = 3;		/* # of color components per pixel */
+    cinfo.in_color_space = JCS_RGB; 	/* colorspace of input image */
+    
+    jpeg_set_defaults(&cinfo);
+    
+    jpeg_set_quality(&cinfo, quality, TRUE /* limit to baseline-JPEG values */);
+
+    jpeg_start_compress(&cinfo, TRUE);
+
+    row_stride = image_width * 3;	/* JSAMPLEs per row in image_buffer */
+
+    while (cinfo.next_scanline < cinfo.image_height) 
+    {
+        /* jpeg_write_scanlines expects an array of pointers to scanlines.
+        * Here the array is only one element long, but you could pass
+        * more than one scanline at a time if that's more convenient.
+        */
+        row_pointer[0] = & image_buffer[cinfo.next_scanline * row_stride];
+        (void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
+    }
+
+    jpeg_finish_compress(&cinfo);
+    /* After finish_compress, we can close the output file. */
+    fclose(outfile);
+    
+    jpeg_destroy_compress(&cinfo);
+
+    /*
     //save
     std::ofstream outFile ( "raspicam_image.ppm",std::ios::binary );
     outFile<<"P6\n"<<Camera.getWidth() <<" "<<Camera.getHeight() <<" 255\n";
     outFile.write ( ( char* ) data, Camera.getImageTypeSize ( raspicam::RASPICAM_FORMAT_RGB ) );
     
     std::cout<<"Image saved at raspicam_image.ppm"<<std::endl;
-    //free resrources    
+    //free resrources   
+    */ 
     delete data;
 }
 
