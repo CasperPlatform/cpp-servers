@@ -93,7 +93,7 @@ camerahandler::camerahandler()
     delete data;
     
     gettimeofday(&tv2, NULL);
-    std::cout << "Time taken in execution = " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std:endl;
+    std::cout << "Time taken in execution = " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std::endl;
 }
 
 camerahandler::~camerahandler()
