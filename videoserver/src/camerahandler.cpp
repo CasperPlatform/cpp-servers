@@ -12,6 +12,9 @@ camerahandler::camerahandler()
         return;
     }
     
+    Camera.setWidth(320);
+    Camera.setHeight(240);
+    
     //wait a while until camera stabilizes
     std::cout<<"Sleeping for 3 secs"<<std::endl;
     
