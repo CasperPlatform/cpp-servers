@@ -62,7 +62,7 @@ camerahandler::camerahandler()
     
     jpeg_set_defaults(&cinfo);
     
-    jpeg_set_quality(&cinfo, 25, TRUE /* limit to baseline-JPEG values */);
+    jpeg_set_quality(&cinfo, 75, TRUE /* limit to baseline-JPEG values */);
 
     jpeg_start_compress(&cinfo, TRUE);
 
