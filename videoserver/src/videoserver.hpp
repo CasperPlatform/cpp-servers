@@ -1,8 +1,8 @@
 #ifndef video_server_hpp
 #define video_server_hpp
 
-class camerahandler;
-class sockethandler;
+#include <camerahandler.hpp>
+#include <sockethandler.hpp>
 #include <sqlite3.h>
 #include <string>
 #include <stdio.h>
