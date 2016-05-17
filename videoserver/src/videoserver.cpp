@@ -36,7 +36,7 @@ void videoserver::parseMessage(char* message, int len)
     if(message[0] != 0x01)
     {
         std::cout << "Wrong message header." << std::endl;
-        return
+        return;
     }
     // extract token.
     char tmp[17];
@@ -56,18 +56,12 @@ void videoserver::parseMessage(char* message, int len)
         token = std::string(tmp);   
     }
 
-    char flag = message[17]
+    char flag = message[17];
 
     if(flag == 'S')
     {
         gettimeofday(&startTime, NULL);
         videoActive = true;
-        
-        thr1 = threading.Thread(target=startVideo, args=(sock, address), kwargs={})
-        thr1.start()
-
-        thr2 = threading.Thread(target=videoTimer, args=(), kwargs={})
-        thr2.start()
 
         std::cout << "Start Sending Video." << std::endl;
     }
