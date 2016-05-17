@@ -37,10 +37,10 @@ void sockethandler::start_receive()
 
 void sockethandler::sendFrame(const unsigned char* frame)
 {
-    unsigned char imageFrame[strlen(frame)] = frame;
+    unsigned int imageSize = strlen((char*)frame);
+    unsigned char * imageFrame[imageSize] = frame;
     imageNumber++;
     unsigned int packetLen = 8000;
-    unsigned int imageSize = strlen(frame);
     unsigned char packets = imageSize/packetLen;
 
     unsigned char header[11];
@@ -92,11 +92,11 @@ void sockethandler::sendFrame(const unsigned char* frame)
 
         if(i == packets-1)
         {
-            memcpy(packet[6], imageFrame[i], imageSize - i*8000);
+            std::copy(imageFrame + i, packet + i + (imageSize - i*8000), packet + 6);
         }
         else
         {
-            memcpy(packet[6], imageFrame[i], packetLen);
+            std::copy(imageFrame + i, imageFrame + i + packetLen, packet + 6);
         }
         
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
