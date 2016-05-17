@@ -1,7 +1,7 @@
 #ifndef socket_handler_hpp
 #define socket_handler_hpp
 
-#include <videoserver.hpp>
+class videoserver;
 #include <iostream>
 #include <stdio.h>
 #include <string>
