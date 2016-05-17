@@ -8,7 +8,7 @@ int main()
 {
     printf("Running main.\n");  
     
-    videohandler video;
+    videoserver video;
    
     printf("Stopping main.\n");  
 

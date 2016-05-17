@@ -23,7 +23,7 @@ class videoserver
         boost::thread service_thread;
 
         static sqlite3 *sqlite_open(); 
-        int videoserver::verifyToken(const char token[]) const; 
+        const int videoserver::verifyToken(const char token[]); 
         void mainLoop();
     public: 
         videoserver();
