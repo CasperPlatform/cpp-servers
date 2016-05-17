@@ -1,12 +1,12 @@
 #include <camerahandler.hpp>
 
-camerahandler::camerahandler() : Camera
+camerahandler::camerahandler()
 {
     Camera.setWidth(320);
     Camera.setHeight(240);
     
     //Open camera 
-    std::cout<<"Opening Camera..."<<std::endl;
+    std::cout << "Opening Camera..." << std::endl;
     if ( !Camera.open()) 
     {
         std::cerr<<"Error opening camera"<<std::endl;
