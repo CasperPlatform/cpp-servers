@@ -34,8 +34,9 @@ void sockethandler::start_receive()
     );
 }
 
-void sockethandler::sendFrame(char* frame)
+void sockethandler::sendFrame(unsigned char* frame)
 {
+    unsigned char imageFrame[] = frame;
     imageNumber++;
     unsigned int packetLen = 8000;
     unsigned int imageSize = strlen(frame);
@@ -66,8 +67,7 @@ void sockethandler::sendFrame(char* frame)
         )
     );
 
-    delete header;
-    delete message;
+    delete[] header;
     
     for(int i = 0; i<packets; i++)
     {
@@ -93,11 +93,11 @@ void sockethandler::sendFrame(char* frame)
 
         if(i == packets-1)
         {
-            memcpy(packet[6], frame[i], strlen(frame) - i*8000);
+            memcpy(packet[6], imageFrame[i], imageSize - i*8000);
         }
         else
         {
-            memcpy(packet[6], frame[i], packetLen);
+            memcpy(packet[6], imageFrame[i], packetLen);
         }
         
         boost::shared_ptr<std::string> message(new std::string(packet));
@@ -109,11 +109,11 @@ void sockethandler::sendFrame(char* frame)
             )
         );
         
-        delete packet;
-        delete message;
+        delete[] packet;
     }
     
-    delete frame;
+    delete[] frame;
+    delete[] imageFrame;
 }
 
 void sockethandler::handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred)

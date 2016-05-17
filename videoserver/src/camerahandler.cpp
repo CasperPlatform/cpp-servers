@@ -1,8 +1,7 @@
 #include <camerahandler.hpp>
 
-camerahandler::camerahandler()
+camerahandler::camerahandler() : Camera;
 {
-    raspicam::RaspiCam Camera; //Camera object
     Camera.setWidth(320);
     Camera.setHeight(240);
     
@@ -20,7 +19,7 @@ camerahandler::camerahandler()
     usleep(2000000);
 }
 
-char* camerahandler::grabImage()
+unsigned char* camerahandler::grabImage()
 {
     //capture
     Camera.grab();

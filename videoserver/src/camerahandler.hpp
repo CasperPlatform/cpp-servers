@@ -17,9 +17,9 @@ class camerahandler
         camerahandler();
         ~camerahandler();
         
-        char* grabImage();
+        unsigned char* grabImage();
     private:
-        
+        raspicam::RaspiCam Camera;    
 };
 
 #endif // camera_handler_hpp
