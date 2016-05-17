@@ -1,6 +1,7 @@
 #ifndef socket_handler_hpp
 #define socket_handler_hpp
 
+#include <videoserver.hpp>
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -17,7 +18,7 @@ using boost::asio::ip::udp;
 class sockethandler
 {           
     public: 
-        sockethandler(unsigned short local_port);
+        sockethandler(videoserver* server, unsigned short local_port);
         ~sockethandler();
     private:
         boost::asio::io_service io_service;
@@ -27,7 +28,7 @@ class sockethandler
         boost::thread service_thread;
         video_server_ptr videoServer;
         unsigned int imageNumber;
-        void sockethandler::initialize()
+        void sockethandler::initialize();
         void sendFrame(char* frame);
         void start_receive();
         void handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred);

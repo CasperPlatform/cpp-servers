@@ -11,7 +11,7 @@ videoserver::videoserver() : service_thread(std::bind(&videoserver::mainLoop, th
     videoActive = false;
 }
 
-videoserver::mainLoop()
+void videoserver::mainLoop()
 {
     while(true)
     {
