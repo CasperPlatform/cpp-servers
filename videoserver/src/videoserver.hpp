@@ -27,7 +27,7 @@ class videoserver
         void mainLoop();
     public: 
         videoserver();
-        ~videeoserver();
+        ~videoserver();
         void parseMessage(char* message, int len);
         void startServer();
         void startVideo();
