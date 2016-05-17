@@ -1,4 +1,6 @@
 #include <videoserver.hpp>
+#include <sockethandler.hpp>
+#include <camerahandler.hpp>
 
 videoserver::videoserver() : service_thread(std::bind(&videoserver::mainLoop, this))
 {
@@ -51,7 +53,7 @@ void videoserver::parseMessage(char* message, int len)
         if(verifyToken(tmp) == -1)
         {
             printf("token verification failed\n");
-            return -1;
+            return;
         } 
         token = std::string(tmp);   
     }

@@ -1,6 +1,6 @@
 #include <camerahandler.hpp>
 
-camerahandler::camerahandler() : Camera;
+camerahandler::camerahandler() : Camera();
 {
     Camera.setWidth(320);
     Camera.setHeight(240);

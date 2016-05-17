@@ -1,4 +1,5 @@
 #include <sockethandler.hpp>
+#include <videoserver.hpp>
 
 sockethandler::sockethandler(videoserver* server, unsigned short local_port) : 
 socket(io_service, udp::endpoint(udp::v4(), local_port)),
@@ -66,8 +67,6 @@ void sockethandler::sendFrame(unsigned char* frame)
             boost::asio::placeholders::bytes_transferred
         )
     );
-
-    delete[] header;
     
     for(int i = 0; i<packets; i++)
     {
@@ -108,12 +107,7 @@ void sockethandler::sendFrame(unsigned char* frame)
                 boost::asio::placeholders::bytes_transferred
             )
         );
-        
-        delete[] packet;
     }
-    
-    delete[] frame;
-    delete[] imageFrame;
 }
 
 void sockethandler::handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred)
