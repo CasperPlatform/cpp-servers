@@ -20,6 +20,8 @@ class sockethandler
     public: 
         sockethandler(videoserver* server, unsigned short local_port);
         ~sockethandler();
+        void sendFrame(unsigned char* frame);
+
     private:
         boost::asio::io_service io_service;
         udp::socket socket;
@@ -29,7 +31,6 @@ class sockethandler
         video_server_ptr videoServer;
         unsigned int imageNumber;
         void initialize();
-        void sendFrame(unsigned char* frame);
         void start_receive();
         void handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred);
         void handle_send(   const boost::shared_ptr<std::string> message, 
