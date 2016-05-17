@@ -28,7 +28,7 @@ void videoserver::mainLoop()
         
         if(videoActive)
         {
-            socket_handler->sendFrame(camera_handler->grabFrame());
+            socket_handler->sendFrame(camera_handler->grabImage());
         }
     }
 }
@@ -69,7 +69,7 @@ void videoserver::parseMessage(char* message, int len)
     }
     if(flag == 's')
     {
-        videoActive = false
+        videoActive = false;
         gettimeofday(&startTime, NULL);
 
         std::cout << "Stop Sending Video." << std::endl;

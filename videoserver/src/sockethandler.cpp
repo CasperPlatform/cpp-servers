@@ -35,9 +35,9 @@ void sockethandler::start_receive()
     );
 }
 
-void sockethandler::sendFrame(unsigned char* frame)
+void sockethandler::sendFrame(const unsigned char* frame)
 {
-    unsigned char imageFrame[] = frame;
+    unsigned char imageFrame[strlen(frame)] = frame;
     imageNumber++;
     unsigned int packetLen = 8000;
     unsigned int imageSize = strlen(frame);
@@ -59,7 +59,7 @@ void sockethandler::sendFrame(unsigned char* frame)
     header[9] = (imageSize>>8) & 0xff;
     header[10] = imageSize & 0xff;
 
-    boost::shared_ptr<std::string> message(new std::string(header));
+    boost::shared_ptr<std::string> message(new std::string(header, header + 11));
 
     socket.async_send_to(boost::asio::buffer(*message), remote_endpoint,
         boost::bind(&sockethandler::handle_send, this, message,
@@ -81,14 +81,14 @@ void sockethandler::sendFrame(unsigned char* frame)
         }
         
         unsigned char packet[packetLength];
-        message[0] = 0x02;
+        packet[0] = 0x02;
 
-        messag[1] = (imageNumber>>24) & 0xff;
-        message[2] = (imageNumber>>16) & 0xff;
-        message[3] = (imageNumber>>8) & 0xff;
-        message[4] = imageNumber & 0xff;
+        packet[1] = (imageNumber>>24) & 0xff;
+        packet[2] = (imageNumber>>16) & 0xff;
+        packet[3] = (imageNumber>>8) & 0xff;
+        packet[4] = imageNumber & 0xff;
 
-        message[5] = i;
+        packet[5] = i;
 
         if(i == packets-1)
         {
@@ -99,7 +99,7 @@ void sockethandler::sendFrame(unsigned char* frame)
             memcpy(packet[6], imageFrame[i], packetLen);
         }
         
-        boost::shared_ptr<std::string> message(new std::string(packet));
+        boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
 
         socket.async_send_to(boost::asio::buffer(*message), remote_endpoint,
             boost::bind(&sockethandler::handle_send, this, message,
