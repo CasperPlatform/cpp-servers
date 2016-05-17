@@ -28,7 +28,7 @@ class sockethandler
         boost::thread service_thread;
         video_server_ptr videoServer;
         unsigned int imageNumber;
-        void sockethandler::initialize();
+        void initialize();
         void sendFrame(char* frame);
         void start_receive();
         void handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred);
