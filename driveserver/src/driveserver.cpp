@@ -8,8 +8,7 @@
 driveserver::driveserver(){
     read_buf.fill(0);
     token = "";
-
-    
+   
 }
 driveserver::~driveserver(){}
 

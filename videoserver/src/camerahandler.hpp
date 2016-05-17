@@ -16,6 +16,8 @@ class camerahandler
     public:
         camerahandler();
         ~camerahandler();
+        
+        char* grabImage();
     private:
         
 };

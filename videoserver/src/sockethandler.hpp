@@ -10,6 +10,7 @@
 #include <boost/array.hpp>
 #include <boost/thread.hpp>
 
+typedef boost::shared_ptr<videoserver> video_server_ptr;
 
 using boost::asio::ip::udp;
 
@@ -24,14 +25,15 @@ class sockethandler
         udp::endpoint remote_endpoint;
         boost::array<char, 8000> recv_buffer;
         boost::thread service_thread;
-
-        void run_service();
+        video_server_ptr videoServer;
+        unsigned int imageNumber;
+        void sockethandler::initialize()
+        void sendFrame(char* frame);
         void start_receive();
         void handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred);
         void handle_send(   const boost::shared_ptr<std::string> message, 
                             const boost::system::error_code& error, 
-                            std::size_t bytes_transferred);
-                    
+                            std::size_t bytes_transferred);              
 };
 
 #endif // socket_handler_hpp

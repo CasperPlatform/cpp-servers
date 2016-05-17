@@ -14,14 +14,14 @@ camerahandler::camerahandler()
         return;
     }
     
-   
-    
     //wait a while until camera stabilizes
-    std::cout<<"Sleeping for 3 secs"<<std::endl;
+    std::cout<<"Sleeping for 2 secs"<<std::endl;
     
     usleep(2000000);
-    
-    
+}
+
+char* camerahandler::grabImage()
+{
     //capture
     Camera.grab();
     
@@ -47,13 +47,10 @@ camerahandler::camerahandler()
     /* Now we can initialize the JPEG compression object. */
     jpeg_create_compress(&cinfo);
     
-    if ((outfile = fopen("testjpg.jpeg", "wb")) == NULL) 
-    {
-        fprintf(stderr, "can't open %s\n", "testjpg.jpeg");
-        return;
-    }
+    unsigned char *mem = NULL;
+    unsigned long mem_size = 0;
     
-    jpeg_stdio_dest(&cinfo, outfile);
+    jpeg_mem_dest(&cinfo, &mem, &mem_size);
     
     cinfo.image_width = Camera.getWidth(); 	/* image width and height, in pixels */
     cinfo.image_height = Camera.getHeight();
@@ -80,24 +77,15 @@ camerahandler::camerahandler()
 
     jpeg_finish_compress(&cinfo);
     /* After finish_compress, we can close the output file. */
-    fclose(outfile);
     
     jpeg_destroy_compress(&cinfo);
 
-    
-    /*
-    //save
-    std::ofstream outFile ( "raspicam_image.ppm",std::ios::binary );
-    outFile<<"P6\n"<<Camera.getWidth() <<" "<<Camera.getHeight() <<" 255\n";
-    outFile.write ( ( char* ) data, Camera.getImageTypeSize ( raspicam::RASPICAM_FORMAT_RGB ) );
-    
-    std::cout<<"Image saved at raspicam_image.ppm"<<std::endl;
-    //free resrources   
-    */ 
     delete data;
     
     gettimeofday(&tv2, NULL);
-    std::cout << "Time taken in execution = " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std::endl;
+    std::cout << "Image with size: " << mem_size << "created in " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std::endl;
+    
+    return mem;
 }
 
 camerahandler::~camerahandler()
