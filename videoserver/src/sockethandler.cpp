@@ -39,7 +39,7 @@ void sockethandler::sendFrame(const unsigned char* frame)
 {
     unsigned int imageSize = strlen((char*)frame);
     unsigned char imageFrame[imageSize];
-    strcpy(imageFrame, frame);
+    strcpy(imageFrame, (char*)frame);
     imageNumber++;
     unsigned int packetLen = 8000;
     unsigned char packets = imageSize/packetLen;
