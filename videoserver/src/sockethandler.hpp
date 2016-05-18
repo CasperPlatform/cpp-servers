@@ -21,7 +21,7 @@ class sockethandler
     public: 
         sockethandler(videoserver* server, unsigned short local_port);
         ~sockethandler();
-        void sendFrame(const unsigned char* frame);
+        void sendFrame(const unsigned char* frame, const unsigned int imageSize);
 
     private:
         boost::asio::io_service io_service;

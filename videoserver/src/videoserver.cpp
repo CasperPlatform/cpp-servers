@@ -28,7 +28,9 @@ void videoserver::mainLoop()
         
         if(videoActive)
         {
-            socket_handler->sendFrame(camera_handler->grabImage());
+            unsigned char* frame = camera_handler->grabImage();
+            usigned int imageSize = strlen((char*)frame);
+            socket_handler->sendFrame(frame, imageSize);
         }
     }
 }
