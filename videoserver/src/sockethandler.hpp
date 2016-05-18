@@ -5,6 +5,7 @@ class videoserver;
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <array>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
