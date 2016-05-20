@@ -28,7 +28,7 @@ class videoserver
     public: 
         videoserver();
         ~videoserver();
-        void parseMessage(char* message, int len);
+        void parseMessage(std::string message, int len);
         void startServer();
         void startVideo();
         void stopServer();

@@ -35,7 +35,7 @@ void videoserver::mainLoop()
     }
 }
 
-void videoserver::parseMessage(char* message, int len)
+void videoserver::parseMessage(std::string message, int len)
 {
     if(message[0] != 0x01)
     {
