@@ -15,7 +15,7 @@ struct frame
 {
     int size;
     unsigned char *data;
-}
+};
 
 class camerahandler
 {
