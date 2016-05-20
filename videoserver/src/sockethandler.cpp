@@ -35,16 +35,16 @@ void sockethandler::start_receive()
     );
 }
 
-void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
+void sockethandler::sendFrame(camerahandler::frame imageFrame)
 {
-    unsigned char *imageFrame= new unsigned char[imageSize];
-    imageFrame = frame;
+    unsigned char *newFrame = new unsigned char[imageFrame.size];
+    newFrame = imageFrame.data;
 
     imageNumber++;
     unsigned int packetLen = 8000;
-    std::cout << "Size of image is: " << imageSize << std::endl;
+    std::cout << "Size of image is: " << imageFrame.size << std::endl;
 
-    unsigned int packets = (unsigned int)ceil((float)imageSize/(float)packetLen);
+    unsigned int packets = (unsigned int)ceil((float)imageFrame.size/(float)packetLen);
 
     unsigned char header[11];
     header[0] = 0x01;
@@ -95,11 +95,11 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
 
         if(i == packets-1)
         {
-            std::copy(imageFrame + i, imageFrame + i + (imageSize - i*8000), packet + 6);
+            std::copy(newFrame + i, newFrame + i + (imageSize - i*8000), packet + 6);
         }
         else
         {
-            std::copy(imageFrame + i, imageFrame + i + packetLen, packet + 6);
+            std::copy(newFrame + i, newFrame + i + packetLen, packet + 6);
         }
         
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));

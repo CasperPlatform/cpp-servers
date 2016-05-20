@@ -84,7 +84,12 @@ unsigned char* camerahandler::grabImage()
     gettimeofday(&tv2, NULL);
     std::cout << "Image with size: " << mem_size << "created in " << (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec) << " seconds" << std::endl;
     
-    return mem;
+    struct frame newFrame;
+    
+    newFrame.size = mem_size;
+    newFrame.data = mem;
+    
+    return newFrame;
 }
 
 camerahandler::~camerahandler()

@@ -12,6 +12,7 @@ class videoserver;
 #include <boost/array.hpp>
 #include <boost/thread.hpp>
 #include <tgmath.h>
+#include <camerahandler.hpp>
 
 typedef boost::shared_ptr<videoserver> video_server_ptr;
 
@@ -22,7 +23,7 @@ class sockethandler
     public: 
         sockethandler(videoserver* server, unsigned short local_port);
         ~sockethandler();
-        void sendFrame(unsigned char* frame, unsigned int imageSize);
+        void sendFrame(camerahandler::frame imageFrame);
 
     private:
         boost::asio::io_service io_service;

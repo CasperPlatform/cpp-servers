@@ -11,13 +11,19 @@
 #include <boost/gil/extension/io/jpeg_io.hpp>
 #include <sys/time.h>
 
+struct frame
+{
+    int size;
+    unsigned char *data;
+}
+
 class camerahandler
 {
     public:
         camerahandler();
         ~camerahandler();
         
-        unsigned char* grabImage();
+        frame grabImage();
     private:
         raspicam::RaspiCam Camera;    
 };
