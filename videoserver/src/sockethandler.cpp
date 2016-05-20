@@ -69,6 +69,7 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
         )
     );
     
+    std::cout << "Number of packets is: " << packets << std:endl;
     for(int i = 0; i<packets; i++)
     {
         unsigned int packetLength = 6;
