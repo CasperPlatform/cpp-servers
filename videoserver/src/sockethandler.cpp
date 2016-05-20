@@ -119,7 +119,7 @@ void sockethandler::handle_receive(const boost::system::error_code& error, std::
     
     std::cout << "message \"" << message_string.c_str() << "\" received." << std::endl;
     
-    videoServer.parseMessage(message_string.c_str(), NULL);
+    videoServer->parseMessage(message_string.c_str(), NULL);
     
     if (!error || error == boost::asio::error::message_size)
     {
