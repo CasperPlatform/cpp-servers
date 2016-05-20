@@ -37,7 +37,7 @@ void sockethandler::start_receive()
 
 void sockethandler::sendFrame(const unsigned char* frame, const unsigned int imageSize)
 {
-    std::array<unsigned char, imageSize> imageFrame = frame;
+    std::vector<unsigned char> imageFrame = frame;
 
     imageNumber++;
     unsigned int packetLen = 8000;
@@ -80,7 +80,7 @@ void sockethandler::sendFrame(const unsigned char* frame, const unsigned int ima
             packetLength += packetLen;
         }
         
-        unsigned char packet[packetLength];
+        std::array<unsigned char, packetLength> packet;
         packet[0] = 0x02;
 
         packet[1] = (imageNumber>>24) & 0xff;
