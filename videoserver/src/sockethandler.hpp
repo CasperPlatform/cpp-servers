@@ -11,6 +11,7 @@ class videoserver;
 #include <boost/shared_ptr.hpp>
 #include <boost/array.hpp>
 #include <boost/thread.hpp>
+#include <tgmath.h>
 
 typedef boost::shared_ptr<videoserver> video_server_ptr;
 
