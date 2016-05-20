@@ -35,7 +35,7 @@ void sockethandler::start_receive()
     );
 }
 
-void sockethandler::sendFrame(const unsigned char* frame, const unsigned int imageSize)
+void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
 {
     unsigned char *imageFrame= new unsigned char[imageSize];
     imageFrame = frame;
