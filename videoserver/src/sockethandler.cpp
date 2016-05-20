@@ -95,16 +95,15 @@ void sockethandler::sendFrame(camerahandler::frame imageFrame)
         packet[4] = imageNumber & 0xff;
 
         packet[5] = i & 0xff;
-
+        
         if(i == packets-1)
         {
-            std::copy(newFrame + i, newFrame + i + (imageSize - i*8000), packet + 7);
+            std::copy(newFrame + i*8000, newFrame + i*8000 + (imageSize - i*8000), packet + 6);
         }
         else
         {
-            std::copy(newFrame + i, newFrame + i + packetLen, packet + 7);
+            std::copy(newFrame + i*8000, newFrame + i*8000 + packetLen, packet + 6);
         }
-        
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
 
         socket.async_send_to(boost::asio::buffer(*message), remote_endpoint,
