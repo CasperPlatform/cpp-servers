@@ -98,11 +98,11 @@ void sockethandler::sendFrame(camerahandler::frame imageFrame)
 
         if(i == packets-1)
         {
-            std::copy(newFrame + i, newFrame + i + (imageSize - i*8000), packet + 6);
+            std::copy(newFrame + i, newFrame + i + (imageSize - i*8000), packet + 7);
         }
         else
         {
-            std::copy(newFrame + i, newFrame + i + packetLen, packet + 6);
+            std::copy(newFrame + i, newFrame + i + packetLen, packet + 7);
         }
         
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
