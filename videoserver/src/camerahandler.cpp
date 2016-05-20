@@ -19,7 +19,7 @@ camerahandler::camerahandler()
     usleep(2000000);
 }
 
-unsigned char* camerahandler::grabImage()
+camerahandler::frame camerahandler::grabImage()
 {
     //capture
     Camera.grab();

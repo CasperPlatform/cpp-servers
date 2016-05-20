@@ -37,9 +37,12 @@ void sockethandler::start_receive()
 
 void sockethandler::sendFrame(camerahandler::frame imageFrame)
 {
-    unsigned char *newFrame = new unsigned char[imageFrame.size];
-    newFrame = imageFrame.data;
+    unsigned int imageSize = imageFrame.size;
 
+    unsigned char *newFrame = new unsigned char[imageSize];
+    newFrame = imageFrame.data;
+    
+    
     imageNumber++;
     unsigned int packetLen = 8000;
     std::cout << "Size of image is: " << imageFrame.size << std::endl;
@@ -111,8 +114,6 @@ void sockethandler::sendFrame(camerahandler::frame imageFrame)
             )
         );
     }
-    
-    delete[] imageFrame;
 }
 
 void sockethandler::handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred)
