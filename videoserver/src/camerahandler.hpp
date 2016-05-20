@@ -11,17 +11,19 @@
 #include <boost/gil/extension/io/jpeg_io.hpp>
 #include <sys/time.h>
 
-struct frame
-{
-    int size;
-    unsigned char *data;
-};
+
 
 class camerahandler
 {
     public:
         camerahandler();
         ~camerahandler();
+        
+        struct frame
+        {
+            int size;
+            unsigned char *data;
+        };
         
         frame grabImage();
     private:
