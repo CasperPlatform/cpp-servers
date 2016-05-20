@@ -5,6 +5,7 @@ sockethandler::sockethandler(videoserver* server, unsigned short local_port) :
 socket(io_service, udp::endpoint(udp::v4(), local_port)),
 service_thread(std::bind(&sockethandler::initialize, this))
 {
+    socket.set_option(boost::asio::socket_base::broadcast(true));
     this->videoServer = video_server_ptr(server);
     imageNumber = 0;
     printf("Server starting on: %i\n", local_port);
@@ -104,6 +105,7 @@ void sockethandler::sendFrame(camerahandler::frame imageFrame)
         {
             std::copy(newFrame + i*8000, newFrame + i*8000 + packetLen, packet + 6);
         }
+        
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
 
         socket.async_send_to(boost::asio::buffer(*message), remote_endpoint,
