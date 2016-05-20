@@ -81,7 +81,7 @@ void sockethandler::sendFrame(const unsigned char* frame, const unsigned int ima
             packetLength += packetLen;
         }
         
-        unsigned char packet[packetLength];
+        unsigned char *packet = new unsigned char[packetLength];
         packet[0] = 0x02;
 
         packet[1] = (imageNumber>>24) & 0xff;
