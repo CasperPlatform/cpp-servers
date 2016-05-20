@@ -42,7 +42,7 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
 
     imageNumber++;
     unsigned int packetLen = 8000;
-    unsigned char packets = imageSize/packetLen;
+    uint8_t packets = imageSize/packetLen;
 
     unsigned char header[11];
     header[0] = 0x01;
@@ -53,7 +53,7 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
     header[4] = (imageNumber>>8) & 0xff;
     header[5] = imageNumber & 0xff;
 
-    header[6] = packets;
+    header[6] = (unsigned char)packets;
     
     header[7] = (imageSize>>24) & 0xff;
     header[8] = (imageSize>>16) & 0xff;

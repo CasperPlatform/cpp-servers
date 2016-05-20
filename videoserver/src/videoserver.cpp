@@ -20,7 +20,7 @@ void videoserver::mainLoop()
         struct timeval currentTime;
         gettimeofday(&currentTime, NULL);
 
-        if(currentTime.tv_sec > startTime.tv_sec)
+        if(currentTime.tv_sec > startTime.tv_sec + 5)
         {
             videoActive = false;
             gettimeofday(&startTime, NULL);
