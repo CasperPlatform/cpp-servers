@@ -42,7 +42,7 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
 
     imageNumber++;
     unsigned int packetLen = 8000;
-    std::cout << "Number of packets is: " << (unsigned int)ceil((float)imageSize/(float)packetLen) << std::endl;
+    std::cout << "Size of image is: " << imageSize << std::endl;
 
     unsigned int packets = (unsigned int)ceil((float)imageSize/(float)packetLen);
 
@@ -91,7 +91,7 @@ void sockethandler::sendFrame(unsigned char* frame, unsigned int imageSize)
         packet[3] = (imageNumber>>8) & 0xff;
         packet[4] = imageNumber & 0xff;
 
-        packet[5] = i;
+        packet[5] = i & 0xff;
 
         if(i == packets-1)
         {
