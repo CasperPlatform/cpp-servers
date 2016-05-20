@@ -92,11 +92,11 @@ void sockethandler::sendFrame(const unsigned char* frame, const unsigned int ima
 
         if(i == packets-1)
         {
-            std::copy(imageFrame + i, packet + i + (imageSize - i*8000), packet + 6);
+            std::copy(imageFrame::begin() + i, imageFrame::begin() + i + (imageSize - i*8000), packet.begin() + 6);
         }
         else
         {
-            std::copy(imageFrame + i, imageFrame + i + packetLen, packet + 6);
+            std::copy(imageFrame::begin() + i, imageFrame::begin() + i + packetLen, packet.begin() + 6);
         }
         
         boost::shared_ptr<std::string> message(new std::string(packet, packet + packetLength));
