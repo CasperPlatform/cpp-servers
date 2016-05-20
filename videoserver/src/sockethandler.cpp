@@ -37,7 +37,8 @@ void sockethandler::start_receive()
 
 void sockethandler::sendFrame(const unsigned char* frame, const unsigned int imageSize)
 {
-    unsigned char imageFrame[imageSize] = frame;
+    unsigned char *imageFrame= new unsigned char[imageSize];
+    imageFrame = frame;
 
     imageNumber++;
     unsigned int packetLen = 8000;
@@ -108,6 +109,8 @@ void sockethandler::sendFrame(const unsigned char* frame, const unsigned int ima
             )
         );
     }
+    
+    delete[] imageFrame;
 }
 
 void sockethandler::handle_receive(const boost::system::error_code& error, std::size_t bytes_transferred)
