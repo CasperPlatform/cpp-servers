@@ -68,7 +68,7 @@ void sockethandler::sendFrame(camerahandler::frame imageFrame)
 
     boost::shared_ptr<std::string> message(new std::string(header, header + 11));
 
-    std::cout << remote_endpoint.addres().to_string() << std::endl;
+    std::cout << remote_endpoint.address().to_string() << std::endl;
     
     socket.async_send_to(boost::asio::buffer(*message), remote_endpoint,
         boost::bind(&sockethandler::handle_send, this, message,
