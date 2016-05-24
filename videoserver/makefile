@@ -20,15 +20,10 @@ LIBRARY += sqlite3
 
 
 LIBRARYDIR += /usr/lib
-LIBRARYDIR += /opt/ros/indigo/lib
 LIBRARYDIR += /usr/lib/arm-linux-gnueabihf
 LIBRARYDIR += /opt/vc/lib
 
-LINK_LIBDIR += /opt/ros/indigo/lib
-
-
 #NCLUDEDIR += $(SRCDIR)/src
-INCLUDEDIR += /opt/ros/indigo/include
 INCLUDEDIR += /usr/include
 INCLUDEDIR += $(SRCDIR)/include
 
