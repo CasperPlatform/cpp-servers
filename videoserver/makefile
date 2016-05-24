@@ -22,8 +22,12 @@ LIBRARY += sqlite3
 LIBRARYDIR += /usr/lib
 LIBRARYDIR += /usr/lib/arm-linux-gnueabihf
 LIBRARYDIR += /opt/vc/lib
+LIBRARYDIR += /usr/local/lib
+
 
 INCLUDEDIR += $(SRCDIR)/src
+INCLUDEDIR += /usr/local
+INCLUDEDIR += /usr/local/include
 INCLUDEDIR += /usr/include
 INCLUDEDIR += $(SRCDIR)/include
 
