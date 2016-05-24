@@ -4,7 +4,7 @@ SRC += $(SRCDIR)/src/camerahandler.cpp
 SRC += $(SRCDIR)/src/sockethandler.cpp 
 SRC += $(SRCDIR)/src/videoserver.cpp 
 
-TARGET = $(SRCDIR)/build/lidarserver
+TARGET = $(SRCDIR)/build/videoserver
 
 LIBRARY += boost_system
 LIBRARY += boost_date_time
