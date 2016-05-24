@@ -1,6 +1,6 @@
 SRCDIR=$(PWD)
 CC   = g++
-src += $(SRCDIR)/main.cpp
+SRC += $(SRCDIR)/main.cpp
 SRC += $(SRCDIR)/src/camerahandler.cpp 
 SRC += $(SRCDIR)/src/sockethandler.cpp 
 SRC += $(SRCDIR)/src/videoserver.cpp 
