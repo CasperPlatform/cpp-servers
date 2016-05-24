@@ -23,7 +23,7 @@ LIBRARYDIR += /usr/lib
 LIBRARYDIR += /usr/lib/arm-linux-gnueabihf
 LIBRARYDIR += /opt/vc/lib
 
-#NCLUDEDIR += $(SRCDIR)/src
+INCLUDEDIR += $(SRCDIR)/src
 INCLUDEDIR += /usr/include
 INCLUDEDIR += $(SRCDIR)/include
 
