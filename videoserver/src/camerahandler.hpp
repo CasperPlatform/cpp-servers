@@ -23,7 +23,7 @@ class camerahandler
         {
             int size;
             unsigned char *data;
-            int timetaken;
+            int timeTaken;
         };
         
         frame grabImage();
