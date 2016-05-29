@@ -29,7 +29,10 @@ void videoserver::mainLoop()
         if(videoActive)
         {
             std::cout << "Got image, sending to sockethandler." << std::endl; 
-            socket_handler->sendFrame(camera_handler->grabImage());
+            struct camerahandler::frame newFrame = camera_handler->grabImage();
+            socket_handler->sendFrame(newFrame);
+            
+            boost::this_thread::sleep(boost::posix_time::milliseconds(30-newFrame.timeTaken));
         }
     }
 }
