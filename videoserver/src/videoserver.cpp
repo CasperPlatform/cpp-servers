@@ -192,7 +192,7 @@ sqlite3 * videoserver::sqlite_open()
     sqlite3 *sqlite_conn;
 
     int error;
-    if ((error = sqlite3_open("db/db.db", &sqlite_conn)) != 0)
+    if ((error = sqlite3_open("/home/data/db.db", &sqlite_conn)) != 0)
     {
         printf("ohoh %d\n", error);
         return NULL;
